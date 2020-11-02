@@ -14,9 +14,15 @@ export default class extends Component {
     jsonFile.responseType = 'arraybuffer';
     jsonFile.onreadystatechange = () => {
       if (jsonFile.readyState === 4 && jsonFile.status === 200) {
+        const options = {
+          styleMap: [
+            "br[type='page'] => div.page:fresh"
+          ]
+        }
         mammoth.convertToHtml(
           { arrayBuffer: jsonFile.response },
           { includeDefaultStyleMap: true },
+          options
         )
         .then((result) => {
           const docEl = document.createElement('div');
